@@ -19,9 +19,5 @@ def listSectionStatus(course_id):
             d[s] = "open"
     return jsonify(d)
 
-
-
-
-
 if __name__ == '__main__':
     app.run(debug=True)
