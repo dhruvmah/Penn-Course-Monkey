@@ -1,1 +1,1 @@
-web: gunicorn run:pcr
+web: gunicorn listSectionStatus: app
