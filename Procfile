@@ -1,1 +1,1 @@
-web: gunicorn listSectionStatus: app
+web: gunicorn app:listSectionStatus
