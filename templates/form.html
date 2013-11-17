@@ -15,7 +15,16 @@
     </head>
     <body>
     
+<table>
+<tr> <td> Course Title </td> <td> Course Status </td></tr>
 
+{% for key in d: %}
+	<tr> <td>{{key}} </td><td> {{ d[key] }}</td></tr>
+{% endfor %}
+
+</table>
+<br />
+<br />
 
 <div id="form">
 <form action="/addnumber" method="post">
