@@ -1,4 +1,4 @@
-from flask import Flask, g, jsonify, Response, request, json, render_template
+from flask import Flask, g, jsonify, Response, request, json, render_template, redirect
 import redis
 import os
 from penn.registrar import Registrar
@@ -12,8 +12,12 @@ def before_request():
 
 @app.route('/')
 def form():
-    return render_template("form.html")
+    return render_template("index.html")
 
+@app.route('/account/<string:number>')
+def show__classes(number):
+    setCourses = g.db.smembers(number)
+    return render_template("classes.html", s = setCourses)
 
 @app.route('/addnumber', methods= ['POST'])
 def add_number():
@@ -23,8 +27,8 @@ def add_number():
     course = add_info["course"]
     print course
     g.db.sadd(course, number)
-    return jsonify({"status" : "okay",
-            "number": number, "course": course})
+    g.db.sadd(number, course)
+    return redirect('/account/'+ number)
 
 @app.route('/getnumbers/<string:course_id>')
 def listNumbersForClass(course_id):
@@ -33,15 +37,13 @@ def listNumbersForClass(course_id):
         print x
     return jsonify({"set": setNumbers})
 
-
-
-@app.route('/course/<string:course_id>')
-def listSectionStatus(course_id):
+@app.route('/course/', methods = ['POST'])
+def listSectionStatus():
+    requested = request.form
     r= Registrar("UPENN_OD_emmK_1000220", "2g0rbtdurlau4didkj9schee95")
-    cis100s = r.search({'course_id': course_id})
-    i=0
+    course = r.search({'course_id': requested['course_id']})
     d = {}
-    for x in cis100s:
+    for x in course:
         print x["section_id"]
         s = x["section_id"]
         print s
@@ -49,7 +51,7 @@ def listSectionStatus(course_id):
             d[s] = "closed"
         else:
             d[s] = "open"
-    return jsonify(d)
+    return render_template("form.html", d = d)
 
 if __name__ == '__main__':
     app.run(debug=True)
