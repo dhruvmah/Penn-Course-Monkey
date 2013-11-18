@@ -1,9 +1,10 @@
 from flask import Flask, g, jsonify, Response, request, json, render_template, redirect
+from twilio.rest import TwilioRestClient
 import redis
 import os
+import time
 from penn.registrar import Registrar
 app = Flask(__name__)
-
 
 @app.before_request
 def before_request():
@@ -30,12 +31,33 @@ def add_number():
     g.db.sadd(number, course)
     return redirect('/account/'+ number)
 
+@app.route('/pingserver')
+def pingServer():
+    r= Registrar("UPENN_OD_emmK_1000220", "2g0rbtdurlau4didkj9schee95")
+    course = r.search({'course_id': 'ACCT101001'})
+    print (time.ctime())
+    for x in course:
+        print x["section_id"]
+        print x["is_closed"]
+    return jsonify({"timer": "started"})
+
+
 @app.route('/getnumbers/<string:course_id>')
 def listNumbersForClass(course_id):
     setNumbers = g.db.smembers(course_id)
     for x in setNumbers:
         print x
     return jsonify({"set": setNumbers})
+
+def sendMessage(number, text):
+    account_sid = "AC42c5c65fb338266351c72a5c6e77d16c"
+    auth_token  = "0f26d5e49d01724a708c5b30dce301f0"
+    client = TwilioRestClient(account_sid, auth_token)    
+    message = client.sms.messages.create(body=text,
+                 to="+1"+ number,    # Replace with your phone number
+                     from_="+18625792345") # Replace with your Twilio number
+    print message.sid
+    return jsonify({"status": message.sid})
 
 @app.route('/course/', methods = ['POST'])
 def listSectionStatus():
