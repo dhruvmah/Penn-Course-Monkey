@@ -61,9 +61,9 @@ def listNumbersForClass(course_id):
     return jsonify({"set": setNumbers})
 
 def textUsers(course_id):
-    numbers = g.db.smembers(course_id)
-        for x in setNumbers:
-            sendMessage(number, course_id)
+    setNumbers = g.db.smembers(course_id)
+    for number in setNumbers:
+        sendMessage(number, course_id)
     return
 
 def sendMessage(number, course_id):
