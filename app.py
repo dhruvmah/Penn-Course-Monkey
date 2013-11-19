@@ -15,6 +15,13 @@ def before_request():
 def form():
     return render_template("index.html")
 
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+    
 @app.route('/account/<string:number>')
 def show__classes(number):
     setCourses = g.db.smembers(number)
@@ -33,15 +40,16 @@ def add_number():
 
 @app.route('/pingserver')
 def pingServer():
+    print time.ctime()
     keys = g.db.keys()
     r = Registrar("UPENN_OD_emmK_1000220", "2g0rbtdurlau4didkj9schee95")
     for key in keys:
-        if not (key.isnumeric()):
+        if not (is_number(key)):
             course = r.search({'course_id': key})
             for x in course:
                 print x["section_id"]
                 print x["is_closed"]
-    return jsonify({"timer": x["section_id"]})
+    return redirect('/')
 
 @app.route('/getnumbers/<string:course_id>')
 def listNumbersForClass(course_id):
