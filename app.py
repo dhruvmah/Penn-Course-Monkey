@@ -49,6 +49,8 @@ def pingServer():
             for x in course:
                 print x["section_id"]
                 print x["is_closed"]
+                if (x["is_closed"] == "false"):
+                    textUsers(x["section_id"])
     return redirect('/')
 
 @app.route('/getnumbers/<string:course_id>')
@@ -58,11 +60,17 @@ def listNumbersForClass(course_id):
         print x
     return jsonify({"set": setNumbers})
 
-def sendMessage(number, text):
+def textUsers(course_id):
+    numbers = g.db.smembers(course_id)
+        for x in setNumbers:
+            sendMessage(number, course_id)
+    return
+
+def sendMessage(number, course_id):
     account_sid = "AC42c5c65fb338266351c72a5c6e77d16c"
     auth_token  = "0f26d5e49d01724a708c5b30dce301f0"
     client = TwilioRestClient(account_sid, auth_token)    
-    message = client.sms.messages.create(body=text,
+    message = client.sms.messages.create(body=course_id,
                  to="+1"+ number,    # Replace with your phone number
                      from_="+18625792345") # Replace with your Twilio number
     print message.sid
