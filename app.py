@@ -49,7 +49,7 @@ def pingServer():
             for x in course:
                 print x["section_id"]
                 print x["is_closed"]
-                if (x["is_closed"] == "false"):
+                if (x["is_closed"] == False):
                     textUsers(x["section_id"])
     return redirect('/')
 
