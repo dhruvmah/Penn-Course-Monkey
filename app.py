@@ -15,6 +15,12 @@ def before_request():
 def form():
     return render_template("index.html")
 
+
+@app.route('/removeclass', methods = ['POST']):
+def removeNumberFromClass():
+    number = request.values.get('From', None)
+
+
 def is_number(s):
     try:
         float(s)
@@ -50,7 +56,7 @@ def pingServer():
                 print x["section_id"]
                 print x["is_closed"]
                 if (x["is_closed"] == False):
-                    textUsers(x["section_id"])
+ #                textUsers(x["section_id"])
     return redirect('/')
 
 @app.route('/getnumbers/<string:course_id>')
