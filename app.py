@@ -33,14 +33,15 @@ def add_number():
 
 @app.route('/pingserver')
 def pingServer():
-    r= Registrar("UPENN_OD_emmK_1000220", "2g0rbtdurlau4didkj9schee95")
-    course = r.search({'course_id': 'ACCT101001'})
-    print (time.ctime())
-    for x in course:
-        print x["section_id"]
-        print x["is_closed"]
-    return jsonify({"timer": "started"})
-
+    keys = g.db.keys()
+    r = Registrar("UPENN_OD_emmK_1000220", "2g0rbtdurlau4didkj9schee95")
+    for key in keys:
+        if not (key.isnumeric()):
+            course = r.search({'course_id': key})
+            for x in course:
+                print x["section_id"]
+                print x["is_closed"]
+    return jsonify({"timer": x["section_id"]})
 
 @app.route('/getnumbers/<string:course_id>')
 def listNumbersForClass(course_id):
