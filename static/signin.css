@@ -64,3 +64,11 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+#contact {
+	position: absolute;
+	margin-top: -35px;
+	margin-left: 92%;
+	text-decoration: none;
+	
+}
