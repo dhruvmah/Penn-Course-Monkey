@@ -34,9 +34,9 @@
     <div class="container">
 
       <div class="logo" align="center">
-        <img src="logo.png" class="monkey-logo">
+        <img src="{{ url_for('static', filename='logo.png') }}" class="monkey-logo">
         <!-- <div class="tagline">COURSE MONKEY</div> -->
-        <div class="tagline"><img src="coursemonkey.png" class="monkey-tagline-logo"></div>
+        <div class="tagline"><img src= "{{ url_for('static', filename='coursemonkey.png') }}" class="monkey-tagline-logo"></div>
        </div>
 
        <div class="container-catch-phrase" align="center">
