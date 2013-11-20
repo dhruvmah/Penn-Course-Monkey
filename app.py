@@ -89,11 +89,11 @@ def sendMessage(number, course_id):
     account_sid = "AC42c5c65fb338266351c72a5c6e77d16c"
     auth_token  = "0f26d5e49d01724a708c5b30dce301f0"
     client = TwilioRestClient(account_sid, auth_token)    
-    message = client.sms.messages.create(body=("Quick! There is 1 open seat in "+ course_id +"! Visit https://pennintouch.apps.upenn.edu/pennInTouch/jsp/fast2.do and register your course. Reply with" + course_id + " to stop receiving" + "messages. Peace out. "),
+    message = client.sms.messages.create(body=("Quick! There is 1 open seat in "+ course_id +"! Visit penn in touch and register your course. Reply with" + course_id + " to stop receiving messages. Peace out. "),
                  to="+"+ number,    # Replace with your phone number
                      from_="+18625792345") # Replace with your Twilio number
     print message.sid
-    return jsonify({"status": message.sid})
+    return
 
 @app.route('/course/', methods = ['POST'])
 def listSectionStatus():
