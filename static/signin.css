@@ -72,6 +72,11 @@ body {
 	text-decoration: none;	
 }
 
-.fb-share-button {
-	margin:auto;
+#fb-root {
+	display: none;
+}
+
+.fb_iframe_widget {
+	margin-top: 20px;
+	margin-left: 48%;
 }
