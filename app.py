@@ -12,11 +12,14 @@ def before_request():
     g.db = redis.from_url(redis_url)
 
 @app.route('/')
+def splash():
+    return render_template("splash.html")
+
+@app.route('/form')
 def form():
     return render_template("index.html")
 
-
-@app.route('/removeclass', methods = ['POST']):
+@app.route('/removeclass', methods = ['POST'])
 def removeNumberFromClass():
     number = request.values.get('From', None)
 
@@ -31,7 +34,7 @@ def is_number(s):
 @app.route('/account/<string:number>')
 def show__classes(number):
     setCourses = g.db.smembers(number)
-    return render_template("classes.html", s = setCourses)
+    return render_template("oneuser.html", s = setCourses)
 
 @app.route('/addnumber', methods= ['POST'])
 def add_number():
@@ -56,8 +59,8 @@ def pingServer():
                 print x["section_id"]
                 print x["is_closed"]
                 if (x["is_closed"] == False):
- #                textUsers(x["section_id"])
-    return redirect('/')
+                    textUsers(x["section_id"])
+    return redirect('/form')
 
 @app.route('/getnumbers/<string:course_id>')
 def listNumbersForClass(course_id):
@@ -96,7 +99,7 @@ def listSectionStatus():
             d[s] = "closed"
         else:
             d[s] = "open"
-    return render_template("form.html", d = d)
+    return render_template("courses.html", d = d)
 
 if __name__ == '__main__':
     app.run(debug=True)
