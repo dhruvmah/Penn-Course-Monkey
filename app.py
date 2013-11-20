@@ -22,6 +22,9 @@ def form():
 @app.route('/removeclass', methods = ['POST'])
 def removeNumberFromClass():
     number = request.values.get('From', None)
+    course = request.values.get('Body', None)
+    print course
+    print number
 
 def is_number(s):
     try:
@@ -78,7 +81,7 @@ def sendMessage(number, course_id):
     account_sid = "AC42c5c65fb338266351c72a5c6e77d16c"
     auth_token  = "0f26d5e49d01724a708c5b30dce301f0"
     client = TwilioRestClient(account_sid, auth_token)    
-    message = client.sms.messages.create(body=course_id,
+    message = client.sms.messages.create(body=("Yo. Your course "+ course_id +"is now ope. Reply with the DEPTNUMBERSECTION to stop receiving" + "messages. Peace out. "),
                  to="+1"+ number,    # Replace with your phone number
                      from_="+18625792345") # Replace with your Twilio number
     print message.sid
