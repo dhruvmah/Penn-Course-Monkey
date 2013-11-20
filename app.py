@@ -6,10 +6,15 @@ import time
 from penn.registrar import Registrar
 app = Flask(__name__)
 
+
 @app.before_request
 def before_request():
     redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
     g.db = redis.from_url(redis_url)
+
+@app.route('/thankyou')
+def thankyou():
+    return render_template("thankyou.html")
 
 @app.route('/')
 def splash():
