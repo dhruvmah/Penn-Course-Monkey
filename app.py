@@ -23,7 +23,6 @@ def form():
 def removeNumberFromClass():
     number = request.values.get('From', None)
 
-
 def is_number(s):
     try:
         float(s)
@@ -39,7 +38,7 @@ def show__classes(number):
 @app.route('/addnumber', methods= ['POST'])
 def add_number():
     add_info = request.form
-    number  = add_info["number"]
+    number = cleansePhoneNumber(add_info["number"])
     print number
     course = add_info["course"]
     print course
@@ -100,6 +99,21 @@ def listSectionStatus():
         else:
             d[s] = "open"
     return render_template("courses.html", d = d)
+
+     
+def cleansePhoneNumber(number):
+	#I assumed number was a string
+	#I used the string replace() method
+	#http://www.tutorialspoint.com/python/string_replace.htm
+    number=number.replace('(','')
+    number=number.replace(' ','')
+    number=number.replace(')','')
+    number=number.replace('.','')
+    number=number.replace('+','')
+    number=number.replace('-','')
+    number=number.replace('[','')
+    number=number.replace(']','')
+    return number
 
 if __name__ == '__main__':
     app.run(debug=True)
