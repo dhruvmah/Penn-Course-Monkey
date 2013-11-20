@@ -26,9 +26,10 @@ def form():
 
 @app.route('/removeclass', methods = ['POST'])
 def removeNumberFromClass():
-    number = request.values.get('From', None)
+    number = cleansePhoneNumber(request.values.get('From', None))
     course = request.values.get('Body', None)
     g.db.srem(course, number)
+    g.db.srem(number,course)
     print course
     print number
     return render_template("index.html")
@@ -48,7 +49,7 @@ def show__classes(number):
 @app.route('/addnumber', methods= ['POST'])
 def add_number():
     add_info = request.form
-    number = cleansePhoneNumber(add_info["number"])
+    number = "1" + cleansePhoneNumber(add_info["number"])
     print number
     course = add_info["course"]
     print course
@@ -89,7 +90,7 @@ def sendMessage(number, course_id):
     auth_token  = "0f26d5e49d01724a708c5b30dce301f0"
     client = TwilioRestClient(account_sid, auth_token)    
     message = client.sms.messages.create(body=("Yo. Your course "+ course_id +"is now open. Reply with the DEPTNUMBERSECTION to stop receiving" + "messages. Peace out. "),
-                 to="+1"+ number,    # Replace with your phone number
+                 to="+"+ number,    # Replace with your phone number
                      from_="+18625792345") # Replace with your Twilio number
     print message.sid
     return jsonify({"status": message.sid})
@@ -110,7 +111,6 @@ def listSectionStatus():
             d[s] = "open"
     return render_template("courses.html", d = d)
 
-     
 def cleansePhoneNumber(number):
 	#I assumed number was a string
 	#I used the string replace() method
