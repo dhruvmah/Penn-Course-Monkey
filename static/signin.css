@@ -14,9 +14,10 @@ body {
   font-family: 'Lato', sans-serif;
   font-size: 50px;
 }
-.container-catch-phrase .description{
+
+.description{
   font-family: 'Lato', sans-serif;
-  font-size:15px;
+  font-size:22px;
 }
 
 .monkey-logo{
@@ -80,3 +81,4 @@ body {
 	margin-top: 20px;
 	margin-left: 48%;
 }
+
