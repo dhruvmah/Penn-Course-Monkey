@@ -15,6 +15,7 @@ def before_request():
 @app.route('/thankyou')
 def thankyou():
     g.db.srem("ACCT101001", "4158272831")
+    g.db.srem("4158272831", "ACCT101001")
     return render_template("thankyou.html")
 
 @app.route('/')
