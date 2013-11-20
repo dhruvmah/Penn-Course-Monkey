@@ -80,7 +80,7 @@ def listNumbersForClass(course_id):
 def textUsers(course_id):
     setNumbers = g.db.smembers(course_id)
     for number in setNumbers:
-        sendMessage(number, course_id)
+    #    sendMessage(number, course_id)
     return
 
 def sendMessage(number, course_id):
