@@ -28,6 +28,7 @@ def form():
 def removeNumberFromClass():
     number = request.values.get('From', None)
     course = request.values.get('Body', None)
+    g.db.srem(course, number)
     print course
     print number
     return render_template("index.html")
