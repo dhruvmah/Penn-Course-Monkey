@@ -29,14 +29,14 @@
     
 {% for key in d: %}
 
-<table>
+<table border= "1px">
 <th> {{ key }} </th>
 
 {% for item in d[key] %}
 <tr> <td> {{ item }} </td> </tr>
 {% endfor %}
 </table>
-
+<br />
 
 {% endfor %}
 
