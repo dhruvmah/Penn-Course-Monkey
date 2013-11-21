@@ -74,12 +74,13 @@ def pingServer():
     for key in keys:
         if not (is_number(key)):
             if (key != "sent"):
-                course = r.search({'course_id': key})
-                for x in course:
-                    print x["section_id"]
-                    print x["is_closed"]
-                    if (x["is_closed"] == False):
-                        textUsers(x["section_id"])
+                if (key != ''):
+                    course = r.search({'course_id': key})
+                    for x in course:
+                        print x["section_id"]
+                        print x["is_closed"]
+                        if (x["is_closed"] == False):
+                            textUsers(x["section_id"])
     return redirect('/form')
 
 @app.route('/getnumbers/<string:course_id>')
