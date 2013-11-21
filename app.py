@@ -26,6 +26,7 @@ def form():
 @app.route('/admin')
 def adminDash():
     keys = g.db.keys()
+    print keys
     dictKeys={}
     for key in keys:
         if not (is_number(key)):
@@ -72,12 +73,13 @@ def pingServer():
     r = Registrar("UPENN_OD_emmK_1000220", "2g0rbtdurlau4didkj9schee95")
     for key in keys:
         if not (is_number(key)):
-            course = r.search({'course_id': key})
-            for x in course:
-                print x["section_id"]
-                print x["is_closed"]
-                if (x["is_closed"] == False):
-                    textUsers(x["section_id"])
+            if (key != "sent"):
+                course = r.search({'course_id': key})
+                for x in course:
+                    print x["section_id"]
+                    print x["is_closed"]
+                    if (x["is_closed"] == False):
+                        textUsers(x["section_id"])
     return redirect('/form')
 
 @app.route('/getnumbers/<string:course_id>')
@@ -102,6 +104,7 @@ def sendMessage(number, course_id):
     message = client.sms.messages.create(body=("Quick! " + course_id +" has 1 open seat. Register on PenninTouch. Reply with" + course_id + " to continue receiving messages. Love, Penn Course Monkey"),
                  to="+"+ number,    # Replace with your phone number
                      from_="+18625792345") # Replace with your Twilio number
+    g.db.sadd("sent", (course_id + "number: " + number + " time: " + time.ctime()))
     return
 
 @app.route('/course/', methods = ['POST'])
