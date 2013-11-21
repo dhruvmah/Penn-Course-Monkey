@@ -23,8 +23,17 @@ def splash():
 def form():
     return render_template("index.html")
 
+#@app.route('/admin')
+#def adminDash():
+#    keys = g.db.keys()
+#    dictKeys=[]
+#    for key in keys:
+#        if not (is_number(key)):
+#            dictKeys[key] = g.db.smembers(key)
+#    return render_template("admindashboard.html", d = dictKeys)
+
 @app.route('/removeclass', methods = ['POST'])
-def removeNumberFromClass():
+def renewNumberForClass():
     number = cleansePhoneNumber(request.values.get('From', None))
     course = request.values.get('Body', None)
     g.db.sadd(course, number)
@@ -82,15 +91,15 @@ def textUsers(course_id):
     setNumbers = g.db.smembers(course_id)
     for number in setNumbers:
         sendMessage(number, course_id)
-        g.db.srem(number, course_id)
-        g.db.srem(course_id, number)
+        #g.db.srem(number, course_id)
+        #g.db.srem(course_id, number)
     return
 
 def sendMessage(number, course_id):
     account_sid = "AC42c5c65fb338266351c72a5c6e77d16c"
     auth_token  = "0f26d5e49d01724a708c5b30dce301f0"
     client = TwilioRestClient(account_sid, auth_token)    
-    message = client.sms.messages.create(body=("Quick! There is 1 open seat in "+ course_id +"! Visit Penn in Touch and register now. Reply with" + course_id + " to continue receiving messages. Thanks for using Penn Course Monkey!"),
+    message = client.sms.messages.create(body=("Quick! " + course_id +" has 1 open seat. Register on PenninTouch. Reply with" + course_id + " to continue receiving messages. Love, Penn Course Monkey"),
                  to="+"+ number,    # Replace with your phone number
                      from_="+18625792345") # Replace with your Twilio number
     return
