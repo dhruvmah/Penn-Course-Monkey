@@ -6,7 +6,6 @@ import time
 from penn.registrar import Registrar
 app = Flask(__name__)
 
-
 @app.before_request
 def before_request():
     redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
@@ -28,8 +27,8 @@ def form():
 def removeNumberFromClass():
     number = cleansePhoneNumber(request.values.get('From', None))
     course = request.values.get('Body', None)
-    g.db.srem(course, number)
-    g.db.srem(number,course)
+    g.db.sadd(course, number)
+    g.db.sadd(number,course)
     print course
     print number
     return render_template("index.html")
@@ -83,16 +82,17 @@ def textUsers(course_id):
     setNumbers = g.db.smembers(course_id)
     for number in setNumbers:
         sendMessage(number, course_id)
+        g.db.srem(number, course_id)
+        g.db.srem(course_id, number)
     return
 
 def sendMessage(number, course_id):
     account_sid = "AC42c5c65fb338266351c72a5c6e77d16c"
     auth_token  = "0f26d5e49d01724a708c5b30dce301f0"
     client = TwilioRestClient(account_sid, auth_token)    
-    message = client.sms.messages.create(body=("Quick! There is 1 open seat in "+ course_id +"! Visit penn in touch and register your course. Reply with" + course_id + " to stop receiving messages. Peace out. "),
+    message = client.sms.messages.create(body=("Quick! There is 1 open seat in "+ course_id +"! Visit Penn in Touch and register now. Reply with" + course_id + " to continue receiving messages. Thanks for using Penn Course Monkey!"),
                  to="+"+ number,    # Replace with your phone number
                      from_="+18625792345") # Replace with your Twilio number
-    print message.sid
     return
 
 @app.route('/course/', methods = ['POST'])
