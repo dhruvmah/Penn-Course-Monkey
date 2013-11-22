@@ -116,13 +116,20 @@ def listSectionStatus():
     course = r.search({'course_id': requested['course_id']})
     d = {}
     for x in course:
-        print x["section_id"]
+        l = []
         s = x["section_id"]
         print s
         if x["is_closed"]:
-            d[s] = "closed"
+            l.append("Closed")
         else:
-            d[s] = "open"
+            l.append("Open")
+        p = x["instructors"][0]["name"]
+        print p
+        l.append(p)
+        t = x["first_meeting_days"]
+        print t
+        l.append(t)
+        d[s] = l
     return render_template("courses.html", d = d)
 
 def cleansePhoneNumber(number):
