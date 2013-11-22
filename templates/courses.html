@@ -54,8 +54,8 @@
     </table> -->
 
 <div class="inlineTable">
-  <div class="floatLeft">
-    <table class="table table-striped table-bordered table-hover" style="width:50%; margin-left:auto; margin-right:auto; margin-bottom:20px; overflow: auto; height:200px;">
+  <div class="floatLeft" style="overflow: scroll; height:450px;">
+    <table class="table table-striped table-bordered table-hover" style="width:50%; margin-left:auto; margin-right:auto; margin-bottom:20px;">
       <tr> <td> Course Code </td><td> Instructor </td><td> Course Time </td><td> Course Status </td></tr>
       {% for key in d: %}
       <div class="row">
@@ -98,6 +98,7 @@
       <br/>
       <div id="form">
       <!-- <form class="form-signin" action="/course/" method="post" target="hidden_iframe" onsubmit="submitted=true;"> -->
+      <h2>Search for a new course <h2>
       <form class="form-signin" action="/course/" method="post">
         <h2 class="form-signin-heading"></h2>
         <input type="text" class="form-control" name="course_id" placeholder="ACCT-101-001" required autofocus>
