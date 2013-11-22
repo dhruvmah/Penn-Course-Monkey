@@ -118,16 +118,18 @@ def listSectionStatus():
     for x in course:
         l = []
         s = x["section_id"]
-        print s
+        print ("section" + s)
         if x["is_closed"]:
             l.append("Closed")
+            print "is_closed"
         else:
             l.append("Open")
+            print "is _open"
         p = x["instructors"][0]["name"]
-        print p
+        print "professor: " + p
         l.append(p)
         t = x["first_meeting_days"]
-        print t
+        print "time: " + t
         l.append(t)
         d[s] = l
     return render_template("courses.html", d = d)
