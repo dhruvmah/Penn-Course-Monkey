@@ -101,6 +101,17 @@ body {
   background:#37528c;
 }
 
+.inlineTable{
+  display: inline-block;
+}
+.floatRight{
+  float: right;
+}
+.floatLeft{
+  float: left;
+}
+
+
 #apDiv1 {
     position:absolute;
     width:400px;
@@ -109,4 +120,6 @@ body {
     left: 105px;
     top: 98px;
 }
+
+
 
