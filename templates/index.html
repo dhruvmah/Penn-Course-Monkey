@@ -38,6 +38,26 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 
+    <script>
+    var img = $('.image');
+if(img.length > 0){
+    var offset = img.offset();
+    function mouse(evt){
+        var center_x = (offset.left) + (img.width()/2);
+        var center_y = (offset.top) + (img.height()/2);
+        var mouse_x = evt.pageX; var mouse_y = evt.pageY;
+        var radians = Math.atan2(mouse_x - center_x, mouse_y - center_y);
+        var degree = (radians * (180 / Math.PI) * -1) + 90; 
+        img.css('-moz-transform', 'rotate('+degree+'deg)');
+        img.css('-webkit-transform', 'rotate('+degree+'deg)');
+        img.css('-o-transform', 'rotate('+degree+'deg)');
+        img.css('-ms-transform', 'rotate('+degree+'deg)');
+    }
+    $(document).mousemove(mouse);
+}
+
+    </script>
+
     </head>
     
     <body>
@@ -47,6 +67,12 @@
     <div class="container">
 
     <div class="logo" align="center">
+
+     <!--  SUNNYS FUN -->
+     <div id="apDiv1"><img src="{{ url_for('static', filename='eyeball.png') }}" class="image"/></div>
+
+    <!--  END OF SUNNYS FUN -->
+
       <img src="{{ url_for('static', filename='logo.png') }}" class="monkey-logo">
       <!-- <div class="tagline">COURSE MONKEY</div> -->
       <div class="tagline"><img src= "{{ url_for('static', filename='coursemonkey.png') }}" class="monkey-tagline-logo"></div>
