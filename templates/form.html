@@ -1,43 +1,63 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html>
     <head>
-        <title> Course Grabber</title>
-     <link rel="stylesheet" type="text/css" href="lp.css" />
-     		<link href='http://fonts.googleapis.com/css?family=Open+Sans:600,300' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="Penn Course Monkey. Trying to get into a closed course? We'll text you when it opens up.">
+      <meta name="author" content="Sunny Shah Dhruv Maheshwari">
+
+      <title>Penn Course Monkey</title>
+
+      <!-- Bootstrap core CSS -->
+      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+
+      <!--Customized stylesheet for this app -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='formpage.css') }}">
+
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:600,300' rel='stylesheet' type='text/css'>
+      <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+
   		<script src="jquery-1.10.0.min.js"> </script>
   		<script src="learn.js"></script>
-
-
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-            <meta name="description" content="The Learner Project" />
     </head>
-    <body>
+  <body>
+
+    <div class="container">
+
+      <div class="logo" align="center">
+        <img src="{{ url_for('static', filename='logo.png') }}" class="monkey-logo">
+        <!-- <div class="tagline">COURSE MONKEY</div> -->
+        <div class="tagline"><img src= "{{ url_for('static', filename='coursemonkey.png') }}" class="monkey-tagline-logo"></div>
+       </div>
+
+       <div class="container-catch-phrase" align="center">
+        <div class="description">Thanks! We'll email you when Course Monkey is up and running. 
+        Those who share will get priority access. 
+        </div>
+      </div>
     
-<table>
-<tr> <td> Course Title </td> <td> Course Status </td></tr>
+    <table>
+    <tr> <td> Course Title </td> <td> Course Status </td></tr>
 
-{% for key in d: %}
-	<tr> <td>{{key}} </td><td> {{ d[key] }}</td></tr>
-{% endfor %}
+    {% for key in d: %}
+    	<tr> <td>{{key}} </td><td> {{ d[key] }}</td></tr>
+    {% endfor %}
 
-</table>
-<br />
-<br />
+    </table>
 
-<div id="form">
-<form action="/addnumber" method="post">
+    <br/>
+    <br/>
 
-<label>phone number  </label> <input type="text" name="number" placeholder="123456789"> 
+    <div id="form">
+      <form action="/addnumber" method="post">
+        <label>phone number  </label> <input type="text" name="number" placeholder="123456789"> 
+        <label> Course </label>  <input type="text" name="course" placeholder="deptnumbersection">
+        <button> submit </button>
+      </form>
+    </div>
 
-<label> Course </label>  <input type="text" name="course" placeholder="deptnumbersection">
-<button> submit </button>
-</form>
-</div>
+    </div> <!-- /container -->
 
-
-</div>
-
-        </body>
-        </html>
+  </body>
+</html>
