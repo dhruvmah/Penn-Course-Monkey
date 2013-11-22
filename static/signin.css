@@ -101,16 +101,21 @@ body {
   background:#37528c;
 }
 
-.inlineTable{
-  display: inline-block;
-}
-.floatRight{
-  float: right;
-}
-.floatLeft{
-  float: left;
+.tableDiv{
+  overflow: scroll;
+  height: 400px;
+  overflow-x: hidden;
 }
 
+.floatRight{
+  float:right;
+  margin-right: 40px;
+}
+
+.floatLeft{
+  float:left;
+  margin-left: 40px;
+}
 
 #apDiv1 {
     position:absolute;
