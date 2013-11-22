@@ -107,6 +107,8 @@ body {
   overflow-x: hidden;
   width: 50%;
   margin: auto;
+  min-width: 53%;
+  max-width: 55%;
 }
 
 .floatRight{
