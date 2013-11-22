@@ -49,16 +49,17 @@
     {% endfor %}
     </table> -->
 
+
     <table class="table table-striped table-bordered table-hover" style="width:50%; margin-left:auto; margin-right:auto; margin-bottom:20px;">
-      <tr> <td> Course Title </td> <td> Course Status </td></tr>
+      <tr> <td> Course Code </td><td> Instructor </td><td> Course Status </td></tr>
       {% for key in d: %}
       <div class="row">
         {% if(d[key]=='open'): %}
-        <div class="col-xs-6 col-sm-3"><tr class="success"> <td>{{key}} </td><td> {{ d[key] }}</td></tr></div>
+        <div class="col-xs-6 col-sm-3"><tr class="success"> <td>{{key}} </td>Sunny Shah<td> {{ d[key] }}</td></tr></div>
         {% endif %}
 
         {% if(d[key]=='closed'): %}
-        <div class="col-xs-6 col-sm-3"><tr class="danger"> <td>{{key}} </td><td> {{ d[key] }}</td></tr></div>
+        <div class="col-xs-6 col-sm-3"><tr class="danger"> <td>{{key}} </td>Dhruv Maheshwari<td> {{ d[key] }}</td></tr></div>
         {% endif %}
 
       </div>
@@ -67,6 +68,7 @@
 
     <!-- <br/>
     <br/> -->
+
 
     <form class="form-signin" action="/addnumber" method="post">
         <h2 class="form-signin-heading"></h2>
