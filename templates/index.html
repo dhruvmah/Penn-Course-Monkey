@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
@@ -12,30 +13,74 @@
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+=======
+>>>>>>> 329c3888100517808d3c514659248eb6f1e037f2
 
-  ga('create', 'UA-45883676-1', 'penncoursemonkey.com');
-  ga('send', 'pageview');
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
-</script>
+    <title>Penn Course Monkey</title>
 
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-            <meta name="description" content="The Learner Project" />
-    </head>
-    <body>
-    
+    <!-- Bootstrap core CSS -->
+    <link href="../templates/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/inputcoursepage.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-45883676-1', 'penncoursemonkey.com');
+    ga('send', 'pageview');
+    </script>
+  </head>
+
+<body>
+
+    <div class="container">
+
+      <div class="logo" align="center">
+        <img src="logo.png" class="monkey-logo">
+        <!-- <div class="tagline">COURSE MONKEY</div> -->
+        <div class="tagline"><img src="coursemonkey.png" class="monkey-tagline-logo"></div>
+       </div>
+
+       <div class="container-catch-phrase" align="center">
+        <div class="description">Trying to get into a course? We'll text you when it opens up!</div>
+      </div>
+
+      <div id="form">
+        <form class="form-signin" action="/course/" method="post">
+            <input type="text" class="form-control" name="course_id" placeholder="Course ID" required autofocus>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Check course status!</button>
+        </form>
+      </div>
+      </form>
+
+    </div> <!-- /container -->
 
 
-<div id="form">
-<form action="/course/" method="post">
-
-<label>Course ID  </label> <input type="text" name="course_id" placeholder="Course Id"> 
-
-<button> submit </button>
-</form>
-</div>
-
-
-</div>
-
-        </body>
-        </html>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  </body>
+</html>
