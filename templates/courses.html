@@ -54,7 +54,7 @@
     </table> -->
 
 <div class="inlineTable">
-  <div class="floatLeft" style="overflow: scroll; height:450px; overflow-x: hidden;">
+  <div class="floatLeft" style="overflow: scroll; height:450px; overflow-x: hidden; ">
     <table class="table table-striped table-bordered table-hover" style="width:50%; margin-left:auto; margin-right:auto; margin-bottom:20px;">
       <tr> <td> Course Code </td><td> Instructor </td><td> Course Time </td><td> Course Status </td></tr>
       {% for key in d: %}
@@ -73,13 +73,8 @@
       </div>
       {% endfor %}
     </table>
-  </div>
 
-    <!-- <br/>
-    <br/> -->
-
-<div class="floatRight">
-  <h4>Sign Up For Notifications <h4>
+    <h4>Sign Up For Notifications <h4>
     <form class="form-signin" action="/addnumber" method="post">
         <h2 class="form-signin-heading"></h2>
 
@@ -93,10 +88,12 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
 
       </form>
+  </div>
 
-      <br/>
-      <br/>
-      <br/>
+    <!-- <br/>
+    <br/> -->
+
+<div class="floatRight">
       <div id="form">
       <!-- <form class="form-signin" action="/course/" method="post" target="hidden_iframe" onsubmit="submitted=true;"> -->
       <h4>Search for a new course <h4>
