@@ -125,7 +125,12 @@ def listSectionStatus():
         else:
             l.append("Open")
             print "is _open"
-        p = x["instructors"][0]["name"]
+        if (x["activity_description"] == "Lecture"):
+            p = x["instructors"][0]["name"]
+        elif (x["activity_description"] == "Recitation"):
+            p = x["primary_instructor"]
+        else:
+            p = ""
         print "professor: " + p
         l.append(p)
         t = x["first_meeting_days"]
