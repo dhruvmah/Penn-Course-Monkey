@@ -2,40 +2,78 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
     <head>
-        <title> Penn Course Monkey </title>
-     <link rel="stylesheet" type="text/css" href="lp.css" />
-     		<link href='http://fonts.googleapis.com/css?family=Open+Sans:600,300' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Penn Course Monkey. Trying to get into a closed course? We'll text you when it opens up.">
+        <meta name="author" content="Sunny Shah Dhruv Maheshwari">
+
+        <title>Penn Course Monkey</title>
+        <!-- <link rel="stylesheet" type="text/css" href="lp.css" /> -->
+     		<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:600,300' rel='stylesheet' type='text/css'> -->
+        <!-- <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'> -->
+        <link rel="shortcut icon" href="{{ url_for('static', filename='logo.png') }}">
+        <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+         <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+        <!-- Custom styles for this template -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='signin.css') }}">
   		
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        <script>(function(d, s, id) {
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) return;
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=563455283724372";
+       fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
 
-  ga('create', 'UA-45883676-1', 'penncoursemonkey.com');
-  ga('send', 'pageview');
+      <script type="text/javascript">var submitted=false; </script>
 
-</script>
+        <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-            <meta name="description" content="The Learner Project" />
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
     </head>
-    <body>
     
+    <body>
 
+    <a id="contact" href="mailto:penncoursemonkey@gmail.com">Get in Touch </a>
 
-<div id="form">
-<form action="/course/" method="post">
+    <div class="container">
 
-<label>Course ID  </label> <input type="text" name="course_id" placeholder="Course Id"> 
+    <div class="logo" align="center">
+      <img src="{{ url_for('static', filename='logo.png') }}" class="monkey-logo">
+      <!-- <div class="tagline">COURSE MONKEY</div> -->
+      <div class="tagline"><img src= "{{ url_for('static', filename='coursemonkey.png') }}" class="monkey-tagline-logo"></div>
+     </div>
 
-<button> submit </button>
-</form>
-</div>
+     <div class="container-catch-phrase" align="center">
+      <div class="description">Trying to get into a closed course? We'll text you when the course opens up!</div>
+    </div>
 
+    <!-- <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='/course/';}"></iframe> -->
 
-</div>
+    <div id="form">
+      <!-- <form class="form-signin" action="/course/" method="post" target="hidden_iframe" onsubmit="submitted=true;"> -->
+      <form class="form-signin" action="/course/" method="post">
+        <h2 class="form-signin-heading"></h2>
+        <input type="text" class="form-control" name="course_id" placeholder="ACCT-101-001" required autofocus>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Check Course Status</button>
+        <!-- <button>Check Course Status</button> -->
+      </form>
 
-        </body>
-        </html>
+      <!-- <form action="/course/" method="post">
+        <label>Course ID  </label> <input type="text" name="course_id" placeholder="ACCT-101-001"> 
+        <button> submit </button>
+      </form> -->
+    </div>
+
+  </div> <!-- /container -->
+
+  </body>
+</html>
