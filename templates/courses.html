@@ -54,11 +54,11 @@
       <tr> <td> Course Code </td><td> Instructor </td><td> Course Time </td><td> Course Status </td></tr>
       {% for key in d: %}
       <div class="row">
-        {% if(d[key][0]=='open'): %}
+        {% if({{ d[key][0] }}=='open'): %}
         <div class="col-xs-6 col-sm-3"><tr class="success"> <td>{{ key }} </td><td>{{ d[key][1] }}</td><td>{{ d[key][2] }}</td><td> {{ d[key][0] }}</td></tr></div>
         {% endif %}
 
-        {% if(d[key][0]=='closed'): %}
+        {% if({{ d[key][0] }}=='closed'): %}
         <div class="col-xs-6 col-sm-3"><tr class="danger"> <td>{{ key }}</td><td>{{ d[key][1] }}</td><td>{{ d[key][2] }}</td><td> {{ d[key][0] }}</td></tr></div>
         {% endif %}
 
