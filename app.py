@@ -77,6 +77,7 @@ def pingServer():
                 if (key != ''):
                     course = r.search({'course_id': key})
                     for x in course:
+                        print time.ctime()
                         print x["section_id"]
                         print x["is_closed"]
                         if (x["is_closed"] == False):
