@@ -57,6 +57,7 @@
     <table class="table table-striped table-bordered table-hover" style="width:100%; margin-left:auto; margin-right:auto; margin-bottom:20px;">
       <tr> <td> Course Code </td><td> Instructor </td><td> Course Time </td><td> Course Status </td></tr>
       {% for key in d: %}
+      {% if key != None: %}
       <div class="row">
 
         {% if( d[key][0] =='Open'): %}
@@ -67,9 +68,8 @@
         <div class="col-xs-6 col-sm-3"><tr class="danger"> <td>{{ key }}</td><td>{{ d[key][1] }}</td><td>{{ d[key][2] }}</td><td> {{ d[key][0]}}</td></tr></div>
         {% endif %}
 
-        <!-- <div class="col-xs-6 col-sm-3"><tr class="danger"> <td>{{ key }}</td><td>{{ d[key][1] }}</td><td>{{ d[key][2] }}</td><td> {{ d[key][0]}}</td></tr></div> -->
-
       </div>
+      {% endif %}
       {% endfor %}
     </table>
 </div>
