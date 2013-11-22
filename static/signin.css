@@ -105,11 +105,14 @@ body {
   overflow: scroll;
   height: 400px;
   overflow-x: hidden;
+  width: 50%;
+  margin: auto;
 }
 
 .floatRight{
   float:right;
   margin-right: 40px;
+  margin-top: 30px;
 }
 
 .floatLeft{
@@ -118,8 +121,8 @@ body {
 }
 
 .forms-on-courses{
-  width:50%;
-  margin-left: 25%;
+  width:60%;
+  margin: auto;
 }
 
 #apDiv1 {
