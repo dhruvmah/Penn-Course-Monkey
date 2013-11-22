@@ -3,55 +3,79 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-    <head>
-        <title> Penn Course Monkey</title>
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="Penn Course Monkey. Trying to get into a closed course? We'll text you when it opens up.">
+      <meta name="author" content="Sunny Shah Dhruv Maheshwari">
+
+      <title>Penn Course Monkey</title>
+      <!-- <link rel="stylesheet" type="text/css" href="lp.css" /> -->
+      <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:600,300' rel='stylesheet' type='text/css'> -->
+      <!-- <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'> -->
       <link rel="shortcut icon" href="{{ url_for('static', filename='logo.png') }}">
-
-     <link rel="stylesheet" type="text/css" href="lp.css" />
-     		<link href='http://fonts.googleapis.com/css?family=Open+Sans:600,300' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-45883676-1', 'penncoursemonkey.com');
-  ga('send', 'pageview');
-
-</script>
-
-
-
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-            <meta name="description" content="The Learner Project" />
-    </head>
-    <body>
+      <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+       <!-- Bootstrap core CSS -->
+      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+      <!-- Custom styles for this template -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='signin.css') }}">
     
-<table>
-<tr> <td> Course Title </td> <td> Course Status </td></tr>
+      <script>(function(d, s, id) {
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) return;
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=563455283724372";
+     fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+  </head>
 
-{% for key in d: %}
-	<tr> <td>{{key}} </td><td> {{ d[key] }}</td></tr>
-{% endfor %}
+  <body>
 
-</table>
-<br />
-<br />
+    <div class="container">
 
-<div id="form">
-<form action="/addnumber" method="post">
+    <div class="logo" align="center">
+      <img src="{{ url_for('static', filename='logo.png') }}" class="monkey-logo">
+      <!-- <div class="tagline">COURSE MONKEY</div> -->
+      <div class="tagline"><img src= "{{ url_for('static', filename='coursemonkey.png') }}" class="monkey-tagline-logo"></div>
+    </div>
+  
+<!--     <table>
+    <tr> <td> Course Title </td> <td> Course Status </td></tr>
+    {% for key in d: %}
+    	<tr> <td>{{key}} </td><td> {{ d[key] }}</td></tr>
+    {% endfor %}
+    </table> -->
 
-<label>phone number  </label> <input type="text" name="number" placeholder="123456789"> 
+    <table class="table table-striped">
+      <tr> <td> Course Title </td> <td> Course Status </td></tr>
+      {% for key in d: %}
+      <div class="row">
+        {% if(d[key]=='open'): %}
+        <div class="col-xs-6 col-sm-3"><tr class="success"> <td>{{key}} </td><td> {{ d[key] }}</td></tr></div>
+        {% endif %}
 
-<label> Course </label>  <input type="text" name="course" placeholder="deptnumbersection">
-<button> submit </button>
-</form>
-</div>
+        {% if(d[key]=='closed'): %}
+        <div class="col-xs-6 col-sm-3"><tr class="danger"> <td>{{key}} </td><td> {{ d[key] }}</td></tr></div>
+        {% endif %}
+
+      </div>
+      {% endfor %}
+    </table>
+
+    <br/>
+    <br/>
+
+    <div id="form">
+      <form action="/addnumber" method="post">
+        <label>Phone Number</label> <input type="text" name="number" placeholder="123456789"> 
+        <label>Course</label>  <input type="text" name="course" placeholder="deptnumbersection">
+        <button>Submit</button>
+      </form>
+    </div>
 
 
-</div>
+    </div> <!-- /container -->
 
-        </body>
-        </html>
+  </body>
+</html>
