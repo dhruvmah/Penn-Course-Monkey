@@ -55,12 +55,12 @@
       {% for key in d: %}
       <div class="row">
 
-        {% if( d[key].index(0) =='open'): %}
-        <div class="col-xs-6 col-sm-3"><tr class="success"> <td>{{ key }} </td><td>{{ d[key].index(1) }}</td><td>{{ d[key].index(2) }}</td><td> {{ d[key].index(0) }}</td></tr></div>
+        {% if( d[key].index(1) =='open'): %}
+        <div class="col-xs-6 col-sm-3"><tr class="success"> <td>{{ key }} </td><td>{{ d[key].index(1) }}</td><td>{{ d[key].index(2) }}</td><td> {{ d[key].index(1) }}</td></tr></div>
         {% endif %}
 
-        {% if(d[key].index(0)=='closed'): %}
-        <div class="col-xs-6 col-sm-3"><tr class="danger"> <td>{{ key }}</td><td>{{ d[key].index(1) }}</td><td>{{ d[key].index(2) }}</td><td> {{ d[key].index(0) }}</td></tr></div>
+        {% if(d[key].index(1)=='closed'): %}
+        <div class="col-xs-6 col-sm-3"><tr class="danger"> <td>{{ key }}</td><td>{{ d[key].index(1) }}</td><td>{{ d[key].index(2) }}</td><td> {{ d[key].index(1) }}</td></tr></div>
         {% endif %}
 
       </div>
