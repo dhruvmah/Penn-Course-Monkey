@@ -103,7 +103,7 @@ body {
 
 .tableDiv{
   overflow: scroll;
-  height: 400px;
+  height: inherit;
   overflow-x: hidden;
   width: 50%;
   margin: auto;
