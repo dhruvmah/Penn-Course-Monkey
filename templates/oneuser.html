@@ -37,8 +37,6 @@
           <!-- <div class="tagline">COURSE MONKEY</div> -->
           <div class="tagline"><img src= "{{ url_for('static', filename='coursemonkey.png') }}" class="monkey-tagline-logo"></div>
         </div>
-
-      <p> you are currently receiving notifications for the following courses: </p>
     
       <!-- <table>
 
@@ -48,14 +46,16 @@
 
       </table> -->
 
-      <table class="table table-striped table-bordered table-hover" style="width:50%; margin-left:auto; margin-right:auto; margin-bottom:20px;">
-      <tr>Your Current Notifications</tr>
-      {% for item in s: %}
-      <div class="row">
-        <div class="col-xs-6 col-sm-3"><tr class="success"> {{item}}</tr></div>
-      </div>
-      {% endfor %}
-    </table>
+      <table class="table table-striped table-bordered" style="width:50%; margin-left:auto; margin-right:auto; margin-bottom:20px;">
+        <tr>Your Current Notifications</tr>
+
+          {% for item in s: %}
+          <div class="row">
+            <div class="col-xs-6 col-sm-3"><tr class="success"><td> {{item}} </td></tr></div>
+          </div>
+          {% endfor %}
+
+       </table>
 
       <br />
       <br />
