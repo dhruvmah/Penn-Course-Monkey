@@ -57,7 +57,7 @@
     <table class="table table-striped table-bordered table-hover" style="width:100%; margin-left:auto; margin-right:auto; margin-bottom:20px;">
       <tr> <td> Course Code </td><td> Instructor </td><td> Course Time </td><td> Course Status </td></tr>
       {% for key in d: %}
-      {% if d[key][0]: %}
+      {% if d[key][0] is not None: %}
       <div class="row">
 
         {% if( d[key][0] =='Open'): %}
