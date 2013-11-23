@@ -36,11 +36,12 @@ def adminDash():
 @app.route('/removeclass', methods = ['POST'])
 def renewNumberForClass():
     number = cleansePhoneNumber(request.values.get('From', None))
-    course = request.values.get('Body', None)
-    g.db.sadd(course, number)
-    g.db.sadd(number,course)
-    print course
-    print number
+    course = cleanseCourseID(request.values.get('Body', None))
+    if (course != ""):
+        g.db.sadd(course, number)
+        g.db.sadd(number,course)
+        print course
+        print number
     return render_template("index.html")
 
 def is_number(s):
