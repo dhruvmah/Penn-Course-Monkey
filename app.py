@@ -60,7 +60,7 @@ def add_number():
     add_info = request.form
     number = "1" + cleansePhoneNumber(add_info["number"])
     print number
-    course = add_info["course"]
+    course = cleanseCourseID(add_info["course"])
     print course
     g.db.sadd(course, number)
     g.db.sadd(number, course)
@@ -152,6 +152,24 @@ def cleansePhoneNumber(number):
     number=number.replace('[','')
     number=number.replace(']','')
     return number
+
+def cleanseCourseID(number):
+    #I assumed number was a string
+    #I used the string replace() method
+    #http://www.tutorialspoint.com/python/string_replace.htm
+    number=number.replace('(','')
+    number=number.replace(' ','')
+    number=number.replace(')','')
+    number=number.replace('.','')
+    number=number.replace('+','')
+    number=number.replace('-','')
+    number=number.replace('[','')
+    number=number.replace(']','')
+    number=number.upper()
+    return number
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
