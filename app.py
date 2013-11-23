@@ -23,7 +23,7 @@ def splash():
 def form():
     return render_template("index.html")
 
-@app.route('/admin')
+@app.route('/admin1737')
 def adminDash():
     keys = g.db.keys()
     print keys
@@ -62,8 +62,10 @@ def add_number():
     print number
     course = cleanseCourseID(add_info["course"])
     print course
-    g.db.sadd(course, number)
-    g.db.sadd(number, course)
+    if (number != ""):
+        if (course != ""):
+            g.db.sadd(course, number)
+            g.db.sadd(number, course)
     return redirect('/account/'+ number)
 
 @app.route('/pingserver')
