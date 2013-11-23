@@ -15,11 +15,11 @@ def before_request():
 def thankyou():
     return render_template("thankyou.html")
 
-@app.route('/')
+@app.route('/splash')
 def splash():
     return render_template("splash.html")
 
-@app.route('/form')
+@app.route('/')
 def form():
     return render_template("index.html")
 
