@@ -51,7 +51,7 @@ def add_number():
     return redirect('/account/'+ number)
 
 
-def add_number(number, course):
+def submit_course_into_db(number, course):
     if not (course == "" or number == ""):
         number_string = g.db.hget(course, "numbers")
         if number_string is None:
