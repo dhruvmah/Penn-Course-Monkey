@@ -48,10 +48,11 @@ def update_database(course):
     db.hset(course["id"], "is_closed", course['is_closed'])
     if not course["is_closed"]:
     	db.hset(course["id"], "numbers", "")
-    	keys = g.db.keys()
+    	keys = db.keys()
     	for key in keys:
-    		if is_number(key):
-    			g.db.srem(key, course)
+            if is_number(key):
+                print "phone number:" + key
+                db.srem(key, course["id"])
 
 def text_open_courses(course):
 	if not course["is_closed"]:

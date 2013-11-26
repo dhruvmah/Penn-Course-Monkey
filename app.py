@@ -38,7 +38,7 @@ def renewNumberForClass():
     number = cleansePhoneNumber(request.values.get('From', None))
     course = cleanseCourseID(request.values.get('Body', None))
     if not (course == "" or number == ""):
-        add_number(number, course);
+        submit_course_into_db(number, course);
     return render_template("index.html")
 
 
@@ -47,7 +47,7 @@ def add_number():
     add_info = request.form
     number = "1" + cleansePhoneNumber(add_info["number"])
     course = cleanseCourseID(add_info["course"])
-    add_number(number, course) 
+    submit_course_into_db(number, course) 
     return redirect('/account/'+ number)
 
 
