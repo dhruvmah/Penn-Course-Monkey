@@ -50,7 +50,6 @@ def add_number():
     submit_course_into_db(number, course) 
     return redirect('/account/'+ number)
 
-
 def submit_course_into_db(number, course):
     if not (course == "" or number == ""):
         number_string = g.db.hget(course, "numbers")
@@ -87,33 +86,36 @@ def clear_course(course):
 
 @app.route('/course/', methods = ['POST'])
 def listSectionStatus():
-    requested = request.form
-    r= Registrar("UPENN_OD_emmK_1000220", "2g0rbtdurlau4didkj9schee95")
-    course = r.search({'course_id': requested['course_id']})
-    d = {}
-    for x in course:
-        l = []
-        s = x["section_id"]
-        print ("section" + s)
-        if x["is_closed"]:
-            l.append("Closed")
-            print "is_closed"
-        else:
-            l.append("Open")
-            print "is _open"
-        if (x["activity_description"] == "Lecture"):
-            p = x["instructors"][0]["name"]
-        elif (x["activity_description"] == "Recitation"):
-            p = x["primary_instructor"]
-        else:
-            p = ""
-        print "professor: " + p
-        l.append(p)
-        t = x["first_meeting_days"]
-        print "time: " + t
-        l.append(t)
-        d[s] = l
-    return render_template("courses.html", d = d)
+    try:
+        requested = request.form
+        r= Registrar("UPENN_OD_emmK_1000220", "2g0rbtdurlau4didkj9schee95")
+        course = r.search({'course_id': requested['course_id']})
+        d = {}
+        for x in course:
+            l = []
+            s = x["section_id"]
+            print ("section" + s)
+            if x["is_closed"]:
+                l.append("Closed")
+                print "is_closed"
+            else:
+                l.append("Open")
+                print "is _open"
+            if (x["activity_description"] == "Lecture"):
+                p = x["instructors"][0]["name"]
+            elif (x["activity_description"] == "Recitation"):
+                p = x["primary_instructor"]
+            else:
+                p = ""
+            print "professor: " + p
+            l.append(p)
+            t = x["first_meeting_days"]
+            print "time: " + t
+            l.append(t)
+            d[s] = l
+        return render_template("courses.html", d = d)
+    except ValueError as e:
+        return render_template("courses.html", d={})
 
 def cleansePhoneNumber(number):
 	#I assumed number was a string
