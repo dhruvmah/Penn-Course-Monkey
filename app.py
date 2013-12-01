@@ -8,8 +8,8 @@ app = Flask(__name__)
        
 @app.before_request
 def before_request():
-    redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
-    g.db = redis.from_url(redis_url)
+    pool = redis.ConnectionPool(host='grideye.redistogo.com', port=9195, db=0, password="9affead30abd45aa2587a3bd66aee17e")
+    g.db = redis.Redis(connection_pool=pool)
 
 @app.route('/thankyou')
 def thankyou():
