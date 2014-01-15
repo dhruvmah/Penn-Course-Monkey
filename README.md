@@ -13,3 +13,4 @@ The static and templates folders contain the html/css/images for the front-end.
 worker.py is the back-end server that updates the redis database based on updates in the Penn Registrar Database. Since
   the database only allows 1,000 queries an hour, we query each class that has users signed up once per hour. Upon updating the data, we text users if their class is opened up. Worker.py runs on an Amazon EC2 instance. 
   
+appMQ.py is an un-used implementation of app.py using message queues. It was discarded/not-used after splitting the service up into a front-end and back-end.
