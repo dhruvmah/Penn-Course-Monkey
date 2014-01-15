@@ -1,3 +1,4 @@
+#attempted to implement message queues here
 from flask import Flask, g, jsonify, Response, request, json, render_template, redirect, current_app
 from twilio.rest import TwilioRestClient
 import redis

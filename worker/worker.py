@@ -7,9 +7,9 @@ import twilio
 from penn.registrar import Registrar
 import time
 
-redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
-db = redis.from_url(redis_url)
-r = Registrar("UPENN_OD_emmK_1000220", "2g0rbtdurlau4didkj9schee95")
+pool = redis.ConnectionPool(host='grideye.redistogo.com', port=9195, db=0, password="9affead30abd45aa2587a3bd66aee17e")
+db = redis.Redis(connection_pool=pool)
+r = Registrar("UPENN_OD_emoG_1000340", "7vgj93rojjmbuh3rrsgs7vc2ic")
 
 def completeTask():
     #pool = Pool(5)
@@ -17,7 +17,7 @@ def completeTask():
     updated_courses = [get_opening(course) for course in get_old_courses()]	
     #pool.map(update_database, updated_courses)
     for course in updated_courses:
-    	update_database(course)
+        update_database(course)
     for course in updated_courses:
         text_open_courses(course)
 
@@ -25,11 +25,35 @@ def get_old_courses():
     keys = db.keys()
     courses = []
     for key in keys:
-        if not (is_number(key)) and (key != ''):
-        	course = db.hgetall(key)
-        	course['id'] = key
-        	courses.append(course)
+        if not (is_number(key)) or (key == ''):
+		try:
+			course = db.hgetall(key)
+        		course['id'] = key
+        		courses.append(course)
+		except redis.exceptions.ResponseError:
+			print key + " " + "error"	
+			db.delete(key)
     return courses
+
+def load_all_courses():
+    r = Registrar("UPENN_OD_emoG_1000340", "7vgj93rojjmbuh3rrsgs7vc2ic")
+    courses = r.search({'course_id': ""})
+        # runs once
+    for c in courses:
+        id = c['section_id']
+	is_closed = (c['is_closed'] == True)
+	try:
+	    if (c["activity_description"] == "Lecture"):
+	        instructor = c["instructors"][0]["name"]
+            elif (c["activity_description"] == "Recitation"):
+                instructor = c["primary_instructor"]
+            else:
+                instructor = ""
+        except IndexError:
+            instructor = ""
+        print "adding: " + id
+	db.hmset(id, {"id":id, "is_closed": is_closed, "instructor": instructor})
+
 
 def get_opening(course):
     try:
@@ -38,31 +62,36 @@ def get_opening(course):
     	courses = r.search({'course_id': course['id']})
     	# runs once
     	for c in courses:
-    		course['is_closed'] = (c['is_closed'] == 'True')
+		course['is_closed'] = (c['is_closed'] == True)
     		return course
     except OSError: 
     	print "error in get_opening"
-    	return 
+    except ValueError as e:
+	print e
 
 def update_database(course):
-    db.hset(course["id"], "is_closed", course['is_closed'])
-    if not course["is_closed"]:
-    	db.hset(course["id"], "numbers", "")
-    	keys = db.keys()
-    	for key in keys:
-            if is_number(key):
-                print "phone number:" + key
-                db.srem(key, course["id"])
+    if course is not None: 
+    	try:
+	    db.hset(course["id"], "is_closed", course['is_closed'])
+    	    print course['is_closed']    
+    	    if not course["is_closed"]:
+    	        db.hset(course["id"], "numbers", "")
+    	        keys = db.keys()
+        except TypeError:
+	    print course
+	    print ("deleting" + course["id"])
+	    db.delete(course["id"]) 
 
 def text_open_courses(course):
-	if not course["is_closed"]:
-		if not course["numbers"] == "":
-			numbers = course["numbers"].split(',')
-			#pool = Pool(5)
-			partial_course_send_message = partial(send_message, course_id=course['id'])
-			#pool.map(partial_course_send_message, numbers)
-			for number in numbers:
-				partial_course_send_message(number) 
+	if course is not None:
+		if not course["is_closed"]:
+			if not course["numbers"] == "":
+				numbers = course["numbers"].split(',')
+				#pool = Pool(5)
+				partial_course_send_message = partial(send_message, course_id=course['id'])
+				#pool.map(partial_course_send_message, numbers)
+				for number in numbers:
+					partial_course_send_message(number) 
 
 def send_message(number, course_id):
 	try:
@@ -86,7 +115,7 @@ def is_number(s):
 
 if __name__ == '__main__':
 	while True:
-		print "sleeping"
-		time.sleep(200)
 		print "start tast"
 		completeTask()
+		print "sleep"
+		time.sleep(3600)
