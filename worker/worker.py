@@ -7,10 +7,12 @@ import twilio
 from penn.registrar import Registrar
 import time
 
+# setup database access
 pool = redis.ConnectionPool(host='grideye.redistogo.com', port=9195, db=0, password="9affead30abd45aa2587a3bd66aee17e")
 db = redis.Redis(connection_pool=pool)
 r = Registrar("UPENN_OD_emoG_1000340", "7vgj93rojjmbuh3rrsgs7vc2ic")
 
+# gets course info from course registrar, updates database, and texts users
 def completeTask():
     #pool = Pool(5)
     #updated_courses = pool.map(get_opening, get_old_courses())
@@ -21,6 +23,7 @@ def completeTask():
     for course in updated_courses:
         text_open_courses(course)
 
+#  gets courses from redis database
 def get_old_courses():
     keys = db.keys()
     courses = []
@@ -35,6 +38,7 @@ def get_old_courses():
 			db.delete(key)
     return courses
 
+# used one time to populate the database with all courses
 def load_all_courses():
     r = Registrar("UPENN_OD_emoG_1000340", "7vgj93rojjmbuh3rrsgs7vc2ic")
     courses = r.search({'course_id': ""})
@@ -54,7 +58,7 @@ def load_all_courses():
         print "adding: " + id
 	db.hmset(id, {"id":id, "is_closed": is_closed, "instructor": instructor})
 
-
+# checks registrar data to see if course is open
 def get_opening(course):
     try:
     	print "get_opening"
@@ -69,6 +73,7 @@ def get_opening(course):
     except ValueError as e:
 	print e
 
+# updates database with new course data
 def update_database(course):
     if course is not None: 
     	try:
@@ -82,6 +87,7 @@ def update_database(course):
 	    print ("deleting" + course["id"])
 	    db.delete(course["id"]) 
 
+# figures out what numbers to text if a course is open
 def text_open_courses(course):
 	if course is not None:
 		if not course["is_closed"]:
@@ -93,6 +99,7 @@ def text_open_courses(course):
 				for number in numbers:
 					partial_course_send_message(number) 
 
+# sends text messages using Twilio API
 def send_message(number, course_id):
 	try:
 		account_sid = "AC42c5c65fb338266351c72a5c6e77d16c"
@@ -106,6 +113,7 @@ def send_message(number, course_id):
 	except twilio.TwilioRestException as e:
 		print e
 
+# checks if a string is a number
 def is_number(s):
     try:
         float(s) 

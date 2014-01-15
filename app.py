@@ -23,6 +23,7 @@ def splash():
 def form():
     return render_template("index.html")
 
+# deprecated keys
 @app.route('/admin1737')
 def adminDash():
     keys = g.db.keys()
@@ -33,6 +34,7 @@ def adminDash():
     #        dictKeys[key] = g.db.smembers(key)
     return render_template("admindashboard.html", d = dictKeys)
 
+# allows user to text in and re-sign up for a course
 @app.route('/renewclass', methods = ['POST'])
 def renewNumberForClass():
     number = cleansePhoneNumber(request.values.get('From', None))
@@ -41,7 +43,7 @@ def renewNumberForClass():
         submit_course_into_db(number, course);
     return render_template("index.html")
 
-
+# cleanse number prior to registering user
 @app.route('/addnumber', methods= ['POST'])
 def add_number():
     add_info = request.form
@@ -50,6 +52,7 @@ def add_number():
     submit_course_into_db(number, course) 
     return redirect('/account/'+ number)
 
+# registers the user to receive notifications 
 def submit_course_into_db(number, course):
     if not (course == "" or number == ""):
         number_string = g.db.hget(course, "numbers")
@@ -60,7 +63,7 @@ def submit_course_into_db(number, course):
         g.db.hset(course, "numbers", number_string)
         g.db.sadd(number,course)
 
-
+# checks if a string is a number
 def is_number(s):
     try:
         float(s)
@@ -68,12 +71,11 @@ def is_number(s):
     except ValueError:
         return False
     
-
+# shows a user which courses he/she has signed up for
 @app.route('/account/<string:number>')
 def show__classes(number):
     setCourses = g.db.smembers(number)
     return render_template("oneuser.html", s = setCourses)
-
 
 @app.route('/clearCourse/<string:course>')
 def clear_course(course):
@@ -84,6 +86,7 @@ def clear_course(course):
             g.db.srem(key, course)
     return render_template("index.html")
 
+# looks up course for the user
 @app.route('/course/', methods = ['POST'])
 def listSectionStatus():
     try:
